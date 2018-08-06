@@ -9,6 +9,10 @@ module.exports = function (app, dirName) {
         response.sendFile(dirName + 'index.html');
     });
 
+    app.get("/home", function (reqeust, response) {
+        response.redirect("/")
+    });
+
     app.get("/books", function (request, response) {
         response.render('files', {title: 'Books', subPart: 'home'})
     });
@@ -20,5 +24,4 @@ module.exports = function (app, dirName) {
     app.get("/games", function (request, response) {
         response.render('files', {title: 'Games', subPart: 'home'})
     });
-
 }
