@@ -1,9 +1,6 @@
 <html>
 
 <head>
-    <script src="/files.js"></script>
-    <script src="/common.js"></script>
-
     <title>
         {{title}}
     </title>
@@ -14,16 +11,29 @@
 
     <a href="/{{subPart}}">Back to {{subPart}}</a>
 
-    <p>Genres</p>
-    <a href="/books/genre/adventure">Adventure</a>
-
-    <ul id="links"></ul>
-
-
-    <div id="content">
+    <div>
+        <h4>Genres</h4>
+        <a href="/books/genre/adventure">Adventure</a>
     </div>
 
-    <a href="/">Home</a>
+    {{#if path}}
+    <ul id="links">
+        <li>
+            <a href="/download?id={{path}}">{{path}}</a>
+        </li>
+        {{#each files}}
+        <li>
+            <a href="/download?id={{this}}">{{this}}</a>
+        </li>
+        {{/each}}
+    </ul>
+    {{/if}}
+
+    <hr>
+    <div>
+        <label>Return</label>
+        <a href="/">Home</a>
+    </div>
 
 </body>
 
