@@ -5,10 +5,10 @@ module.exports = function (app) {
     /**
      * Routes
      */
-    app.get("/books/adventure", function (request, response) {
+    app.get("/pictures/linux", function (request, response) {
         response.render('files',
             {
-                title: 'Adventure',
+                title: 'Linux',
                 subPart: 'books',
                 path: 'iWillFail.png',
                 files: data
