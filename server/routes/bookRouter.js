@@ -1,5 +1,3 @@
-const fileLoader = require('../helpers/fileLoadHelper.js')
-
 module.exports = function (app) {
 
     /**
@@ -9,7 +7,7 @@ module.exports = function (app) {
         response.render('files',
             {
                 title: 'Adventure',
-                subPart: 'books',
+                returnPath: 'books',
                 path: 'iWillFail.png',
                 files: data
             })

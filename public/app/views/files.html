@@ -9,10 +9,16 @@
 <body>
     <p>Files</p>
 
-    <a href="/{{subPart}}">Back to {{subPart}}</a>
+    <a href="/{{returnPath}}">Back to {{returnPath}}</a>
 
     <div>
         <h4>Genres</h4>
+        <hr>
+        {{#subDirs}}
+        <br>
+        <a href="{{this}}">{{this}}</a>
+        {{/subDirs}}
+        <hr>
         <a href="/books/adventure">Books - Adventure</a>
         <br>
         <a href="/pictures/linux">Picture - Linux</a>

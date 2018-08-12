@@ -1,11 +1,9 @@
-const fileLoader = require('../helpers/fileLoadHelper.js')
-
 module.exports = function (app) {
     app.get("/movies/comedy", function (request, response) {
         response.render('files',
             {
                 title: 'Comedy',
-                subPart: 'movies',
+                returnPath: 'movies',
                 path: 'iWillFail.png',
                 files: data
             })
