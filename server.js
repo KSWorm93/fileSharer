@@ -1,13 +1,20 @@
-// Imports
+//Imports
 const express = require('express');
 const hbs = require("hbs");
 
-// Constants
+//Constants
 const app = express();
 const sharedDir = __dirname + '/files';
 const publicDir = __dirname + '/public/app/';
 const PORT = 4090;
 const HOSTNAME = 'http://localhost:'
+
+//Export globals
+module.exports = {
+    app: app,
+    shared: sharedDir,
+    public: publicDir
+}
 
 //Set engine and views location
 app.set('views', publicDir + 'views/')
@@ -20,11 +27,12 @@ app.engine('html', hbs.__express);
 //Param 2: publicDir
 //Param 3: sharedDir
 const main = require("./server/routes/mainRouter.js")(app, publicDir, sharedDir);
-const books = require("./server/routes/bookRouter.js")(app);
-const movies = require("./server/routes/movieRouter.js")(app);
-const games = require("./server/routes/gameRouter.js")(app);
-const shows = require("./server/routes/showRouter.js")(app);
-const pictures = require("./server/routes/pictureRouter.js")(app);
+const books = require("./server/routes/bookRouter.js")();
+const movies = require("./server/routes/movieRouter.js")();
+const music = require("./server/routes/musicRouter.js")();
+const games = require("./server/routes/gameRouter.js")();
+const shows = require("./server/routes/showRouter.js")();
+const pictures = require("./server/routes/pictureRouter.js")();
 
 //start the server
 app.listen(PORT);

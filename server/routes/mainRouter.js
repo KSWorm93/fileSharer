@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const errors = require('../helpers/errorHelper.js');
 const download = require('../helpers/downloadHelper.js');
-const contentLoader = require('../helpers/contentLoadHelper.js');
+const routeHelper = require('../helpers/routeHelper.js')
 const { URL } = require('url');
 
 module.exports = function (app, dirName, sharedDir) {
@@ -14,30 +14,12 @@ module.exports = function (app, dirName, sharedDir) {
         response.redirect("/")
     });
 
-    app.get("/books", function (request, response) {
-        response.render('files', { title: 'Books', returnPath: 'home' })
-    });
-
-    app.get("/movies", function (request, response) {
-        response.render('files', { title: 'Movies', returnPath: 'home' })
-    });
-
-    app.get("/games", function (request, response) {
-        response.render('files', { title: 'Games', returnPath: 'home' })
-    });
-
-    app.get("/shows", function (request, response) {
-        response.render('files', { title: 'Shows', returnPath: 'home' })
-    });
-
-    app.get("/pictures", function (request, response) {
-        response.render('files',
-            {
-                title: 'Pictures',
-                returnPath: 'home',
-                subDirs: contentLoader.readContent(sharedDir, '/pictures')
-            })
-    });
+    routeHelper.addRoute('home', '/books', 'Books');
+    routeHelper.addRoute('home', '/movies', 'Movies');
+    routeHelper.addRoute('home', '/music', 'Music');
+    routeHelper.addRoute('home', '/games', 'Games');
+    routeHelper.addRoute('home', '/shows', 'Shows');
+    routeHelper.addRoute('home', '/pictures', 'Pictures');
 
     app.get('/download', function (request, response) {
         const referenceUrl = new URL(request.headers.referer);

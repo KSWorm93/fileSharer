@@ -1,9 +1,6 @@
-module.exports = function (app) {
-    
-    /**
-     * Routes
-     */   
-    app.get("/shows/genre/action", function (request, response) {
-        response.render('files', {title: 'Action'})
-    });
+const routeHelper = require('../helpers/routeHelper.js');
+
+module.exports = function () {
+
+    routeHelper.addRoute('shows', '/shows/musical', 'Musical', true);
 }

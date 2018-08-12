@@ -10,24 +10,19 @@
     <p>Files</p>
 
     <a href="/{{returnPath}}">Back to {{returnPath}}</a>
+    <hr>
 
     <div>
+        {{#if loadgenre}}
         <h4>Genres</h4>
-        <hr>
-        {{#subDirs}}
+        <hr> {{#subDirs}}
         <br>
-        <a href="{{this}}">{{this}}</a>
-        {{/subDirs}}
-        <hr>
-        <a href="/books/adventure">Books - Adventure</a>
-        <br>
-        <a href="/pictures/linux">Picture - Linux</a>
-        <br>
-        <a href="/movies/comedy">Movies - Comedy</a>
+        <a href="{{../prefix}}{{this}}">{{this}}</a>
+        {{/subDirs}} {{/if}}
     </div>
 
-    {{#if path}}
     <ul id="links">
+        {{#if loadFiles}}
         <li>
             <a href="/download?id={{path}}">{{path}}</a>
         </li>
@@ -35,9 +30,8 @@
         <li>
             <a href="/download?id={{this}}">{{this}}</a>
         </li>
-        {{/each}}
+        {{/each}} {{/if}}
     </ul>
-    {{/if}}
 
     <hr>
     <div>

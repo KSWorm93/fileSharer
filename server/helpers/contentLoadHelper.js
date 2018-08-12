@@ -1,15 +1,15 @@
 const fs = require('fs');
 
 module.exports = {
-    readContent: readContentFromDir,
+    readContent: readContentFromDir
 }
 
-//TODO - Load directories, to be used with genres, subdirectories, etc
 /**
  * Read content from given path
- * @param {*} sharedDir Start location of shared directory
+ * @param {*} sharedDir Location for shared directory
  * @param {*} dir Directory to look at
  */
 function readContentFromDir(sharedDir, dir) {
+    dir = dir.replace('%20', ' ');
     return fs.readdirSync(sharedDir + dir);
 }

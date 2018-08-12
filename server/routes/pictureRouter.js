@@ -1,20 +1,6 @@
-module.exports = function (app) {
+const routeHelper = require('../helpers/routeHelper.js');
 
-    /**
-     * Routes
-     */
-    app.get("/pictures/linux", function (request, response) {
-        response.render('files',
-            {
-                title: 'Linux',
-                returnPath: 'books',
-                path: 'iWillFail.png',
-                files: data
-            })
-    });
+module.exports = function () {
+    routeHelper.addRoute('pictures', '/pictures/linux', 'Linux', true)
+    routeHelper.addRoute('pictures' ,'/pictures/wallpapers', 'Wallpapers', true);
 }
-
-const data = ['neofetch.png', 'lockscreen.png', 'lockscreen-original.png'];
-
-//TODO - Implement loadFiledFromDrive
-// const data = fileLoader.loadFilesFromDrive('someDir')

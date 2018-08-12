@@ -5,16 +5,16 @@ module.exports = {
 }
 
 /**
- * Downloads a file
+ * Downloads specified file from specified path
  * @param {*} response HTTP response object 
- * @param {*} fileId File name
- * @param {*} file FIle path
+ * @param {*} fileName File name
+ * @param {*} filePath File path
  */
-function downloadFile(response, fileId, file) {
-    const extension = fileExtension(file);
-    const rstream = fs.createReadStream(file);
+function downloadFile(response, fileName, filePath) {
+    const extension = fileExtension(filePath);
+    const rstream = fs.createReadStream(filePath);
 
-    response.setHeader('Content-disposition', 'attachment; filename=' + fileId);
+    response.setHeader('Content-disposition', 'attachment; filename=' + fileName);
     response.setHeader('Content-Type', mimeType[extension] || 'text/plain');
     rstream.pipe(response);
 }
