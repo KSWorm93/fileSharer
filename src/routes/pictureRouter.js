@@ -1,6 +1,6 @@
 const routeHelper = require('../helpers/routeHelper.js');
 
 module.exports = function () {
-    routeHelper.addRoute('pictures', '/pictures/linux', 'Linux', true)
-    routeHelper.addRoute('pictures' ,'/pictures/wallpapers', 'Wallpapers', true);
+    routeHelper.contentRoute('pictures', '/pictures/linux', 'Linux', true)
+    routeHelper.contentRoute('pictures' ,'/pictures/wallpapers', 'Wallpapers', true);
 }

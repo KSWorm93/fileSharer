@@ -29,11 +29,7 @@
         {{#each files}}
         <li>
             <a href="/download?id={{this}}">{{this}}</a>
-            <a href="/stream?id={{this}}">{{this}}</a>
-            
-            <video controls>
-                <source src='/stream?id={{this}}'/>
-            </video>
+            <a href="/streamDirect?id={{this}}">STREAM</a>
         </li>
         {{/each}} {{/if}}
     </ul>
