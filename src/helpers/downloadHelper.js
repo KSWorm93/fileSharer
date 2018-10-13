@@ -1,5 +1,5 @@
 const fs = require('fs');
-const files = require('../helpers/fileUtilities.js')
+const files = require('../utilities/fileUtilities.js')
 
 module.exports = {
     downloadFile: downloadFile

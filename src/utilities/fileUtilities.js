@@ -1,16 +1,27 @@
 module.exports = {
     capitalFirstLetter: toCapital,
+    capitalAll: allToCapital,
     removeExtension: removeExtension,
     getFileExtension: fileExtension,
-    getMimeType: mimeType
+    getMimeType: mimeType,
+    getFileName: getName,
+    replaceSymbol: replaceSymbol
 }
 
 /**
  * Upper cases first letter
  * @param {string} string 
  */
-function toCapital (string) {
+function toCapital(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+/**
+ * Upper cases all words in string
+ * @param {*} string 
+ */
+function allToCapital(string) {
+    return string.replace(/\b\w/g, l => l.toUpperCase())
 }
 
 /**
@@ -30,11 +41,23 @@ function fileExtension(file) {
     return file.slice((file.lastIndexOf(".") - 1 >>> 0) + 2);
 }
 
+/**
+ * Returns file name by getting last element after '/'
+ * @param {string} filePath full file path to file
+ */
+function getName(filePath) {
+    return /[^/]*$/.exec(filePath)[0];
+}
+
+function replaceSymbol(text, symbol, replacement) {
+    return text.replace(symbol, replacement);
+}
+
 // https://www.freeformatter.com/mime-types-list.html
 /**
  * Object containing all string mimetypes
  */
-function mimeType (extension) {
+function mimeType(extension) {
     const mimeType = {
         'ico': 'image/x-icon',
         'png': 'image/png',

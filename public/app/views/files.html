@@ -13,26 +13,31 @@
     <hr>
 
     <div>
-        {{#if loadgenre}}
         <h4>Genres</h4>
-        <hr> {{#subDirs}}
-        <br>
-        <a href="{{../prefix}}{{this}}">{{this}}</a>
-        {{/subDirs}} {{/if}}
+        <ul>
+            {{#subDirs}}
+            <li>
+                <a href="{{../prefix}}{{this}}">{{this}}</a>
+            </li>
+            {{/subDirs}}
+        </ul>
     </div>
 
-    <ul id="links">
-        {{#if loadFiles}}
-        <li>
-            <a href="/download?id={{path}}">{{path}}</a>
-        </li>
-        {{#each files}}
-        <li>
-            <a href="/download?id={{this}}">{{this}}</a>
-            <a href="/streamDirect?id={{this}}">STREAM</a>
-        </li>
-        {{/each}} {{/if}}
-    </ul>
+    <hr>
+    <div>
+        <h4>Files</h4>
+        <ul id="links">
+            <li>
+                <a href="/download?id={{path}}">{{path}}</a>
+            </li>
+            {{#files}}
+            <li>
+                <a href="/download?id={{this}}">{{this}}</a>
+                <a href="/streamDirect?id={{this}}">STREAM</a>
+            </li>
+            {{/files}}
+        </ul>
+    </div>
 
     <hr>
     <div>

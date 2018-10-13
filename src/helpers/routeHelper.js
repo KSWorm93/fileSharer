@@ -1,6 +1,6 @@
 const contentLoader = require('../helpers/contentLoadHelper.js');
 const errors = require('../helpers/errorHelper.js')
-const files = require('../helpers/fileUtilities.js')
+const files = require('../utilities/fileUtilities.js')
 const globals = require('../../server.js');
 const { URL } = require('url');
 const path = require('path');
@@ -32,7 +32,7 @@ function content(returnPath, route, title, findFiles = false, view = 'files') {
             loadFiles: findFiles,
             loadgenre: !findFiles,
             files: contentLoader.readContent(globals.shared, route),
-            subDirs: contentLoader.readContent(globals.shared, route)
+            subDirs: contentLoader.readContent(globals.shared, route, true)
         });
     });
 }
@@ -42,7 +42,7 @@ function content(returnPath, route, title, findFiles = false, view = 'files') {
  * @param {string} route  Route to look for content
  * @param {string} view Default=videoStream - Which view to render
  */
-function stream(route, view = 'videoStream'){
+function stream(route, view = 'videoStream') {
     globals.app.get(route, function (request, response) {
         const dir = new URL(request.headers.referer).pathname;
         response.render(view, {
@@ -53,18 +53,26 @@ function stream(route, view = 'videoStream'){
     });
 }
 
+function addHtmlSigns(text) {
+    text = text
+        .replace(' ', '%20')
+        .replace('&', '%26');
+    return text;
+}
+
 /**
  * Add route for download/stream of files
  * @param {string} route Route to register
  * @param {function} functionToExecute Function that will be executed
  */
-function file(route, functionToExecute){
+function file(route, functionToExecute) {
     globals.app.get(route, function (request, response) {
         const subDir = new URL(request.headers.referer).pathname;
         const fileName = request.query.id;
+
         let filePath = (globals.shared + subDir + '/' + fileName).replace('%20', ' ');
-        if(request.query.dir) { filePath = filePath.replace('streamDirect', request.query.dir) }
-        
+        if (request.query.dir) { filePath = filePath.replace('streamDirect', request.query.dir) }
+
         fs.stat(filePath, function (error, stats) {
             if (error == null) {
                 functionToExecute(response, request, stats, fileName, filePath);
@@ -74,7 +82,7 @@ function file(route, functionToExecute){
                 errors.errorPage(response, "Something went completely wrong", '500', 'Server error');
             }
         });
-    }); 
+    });
 }
 
 /**
@@ -82,8 +90,8 @@ function file(route, functionToExecute){
  * @param {string} route Route to register
  * @param {string} view HTML file to send
  */
-function sendFile (route, view) {
-    globals.app.get(route, function(request, response) {
+function sendFile(route, view) {
+    globals.app.get(route, function (request, response) {
         response.sendFile(path.resolve(globals.public + view));
     })
 }

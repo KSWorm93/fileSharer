@@ -1,5 +1,5 @@
 const fs = require('fs');
-const files = require('../helpers/fileUtilities.js')
+const files = require('../utilities/fileUtilities.js')
 
 module.exports = {
     streamFile: streamFile
@@ -12,6 +12,12 @@ module.exports = {
  * @param {string} filePath File path
  */
 function streamFile(response, request, stats, fileName, filePath) {
+    console.log(fileName)
+    console.log(filePath)
+    console.log(request.query.id)
+
+
+
     const extension = files.getFileExtension(filePath);
     const range = request.headers.range;
     const positions = range.replace(/bytes=/, "").split("-");
