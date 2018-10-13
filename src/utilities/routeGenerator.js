@@ -9,7 +9,7 @@ module.exports = {
 function generateRoutes() {
     const location = __dirname + '/..' + '/routes/';
     const shared = __dirname + '/../..' + '/files/';
-    let filename = 'test.js';
+    let fileName = 'test.js';
     let fileContent = 'test';
 
     
@@ -18,6 +18,7 @@ function generateRoutes() {
 
     fileDirs.forEach(directory => {
         fileName = directory + '.js';
+        fileContent = '';
         fileContent += addImports();
         fileContent += addNewline();
         fileContent += addModuleExportsStart();
@@ -39,7 +40,7 @@ function generateRoutes() {
         fileContent += addNewline();
         fileContent += addModuleExportsEnd();
 
-        fs.writeFile(location + filename, fileContent, function (error) {
+        fs.writeFile(location + fileName, fileContent, function (error) {
             if (error) {
                 return console.log(error)
             }
