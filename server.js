@@ -1,7 +1,6 @@
 //Imports
 const express = require('express');
 const hbs = require("hbs");
-const generator = require('../fileSharer/src/utilities/routeGenerator.js')
 
 //Constants
 const app = express();
@@ -19,8 +18,6 @@ module.exports = {
     public: publicDir
 }
 
-generator.generateRoutes();
-
 //Set engine and views location
 app.set('views', publicDir + 'views/')
 app.use(express.static(publicDir + 'scripts'))
@@ -29,12 +26,12 @@ app.engine('html', hbs.__express);
 
 //Add routes
 const main = require("./src/routes/mainRouter.js")();
-const books = require("./src/routes/bookRouter.js")();
-const movies = require("./src/routes/movieRouter.js")();
+const books = require("./src/routes/booksRouter.js")();
+const movies = require("./src/routes/moviesRouter.js")();
 const music = require("./src/routes/musicRouter.js")();
-const games = require("./src/routes/gameRouter.js")();
-const shows = require("./src/routes/showRouter.js")();
-const pictures = require("./src/routes/pictureRouter.js")();
+const games = require("./src/routes/gamesRouter.js")();
+const shows = require("./src/routes/showsRouter.js")();
+const pictures = require("./src/routes/picturesRouter.js")();
 
 //start the server
 app.listen(PORT);

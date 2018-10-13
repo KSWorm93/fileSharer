@@ -1,2 +1,6 @@
 /node_modules
 /files
+
+#route locations
+/src/routes/*sRouter.js
+/src/routes/musicRouter.js

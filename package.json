@@ -1,23 +1,20 @@
 {
-  "name": "filesharer",
-  "version": "1.0.0",
-  "description": "Personal file sharing server",
-  "main": "index.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "keywords": [
-    "file sharing",
-    "media streaming"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/KSWorm93/fileSharer"
-  },
-  "author": "KSWorm93",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.16.2",
-    "hbs": "^4.0.1"
+    "name": "filesharer",
+    "version": "1.0.0",
+    "description": "Personal file sharing server",
+    "main": "index.js",
+    "scripts": {
+      "prestart":"node src/utilities/routeGenerator.js",  
+      "start": "node server.js"
+    },
+    "keywords": [
+      "fileSharer"
+    ],
+    "author": "KSWorm93",
+    "license": "ISC",
+    "dependencies": {
+      "express": "^4.16.2",
+      "handlebars": "^4.0.11",
+      "hbs": "^4.0.1"
+    }
   }
-}

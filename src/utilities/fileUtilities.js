@@ -50,7 +50,7 @@ function getName(filePath) {
 }
 
 function replaceSymbol(text, symbol, replacement) {
-    return text.replace(symbol, replacement);
+    return text.replace(new RegExp(symbol, 'g'), replacement);
 }
 
 // https://www.freeformatter.com/mime-types-list.html
