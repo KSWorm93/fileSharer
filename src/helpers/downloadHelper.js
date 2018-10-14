@@ -12,8 +12,6 @@ module.exports = {
  * @param {string} filePath File path
  */
 function downloadFile(response, request, stats, fileName, filePath) {
-    console.log('download: ' + fileName)
-    console.log('download: ' + filePath)
     const extension = files.getFileExtension(filePath);
     const rstream = fs.createReadStream(filePath);
 

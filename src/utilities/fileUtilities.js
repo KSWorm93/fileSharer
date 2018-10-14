@@ -51,10 +51,20 @@ function getName(filePath) {
     return /[^/]*$/.exec(filePath)[0];
 }
 
+/**
+ * Replace a symbol in a text with the given replacement
+ * @param {string} text text you wish to search 
+ * @param {string} symbol symbol or text part to look for
+ * @param {string} replacement the replacement for matches
+ */
 function replaceSymbol(text, symbol, replacement) {
     return text.split(symbol).join(replacement);
 }
 
+/**
+ * Encode the text string to allow spaces and parentheses in the text
+ * @param {string} text 
+ */
 function urlEncode(text) {
     let url = text;
     url = replaceSymbol(url, ' ', '%20');
@@ -63,6 +73,10 @@ function urlEncode(text) {
     return url;
 }
 
+/**
+ * Decode the text, replacing encoded spaces and parentheses with the right parts
+ * @param {string} text 
+ */
 function urlDecode(text) {
     let url = text;
     url = replaceSymbol(url, '%20', ' ');

@@ -23,16 +23,6 @@ module.exports = {
  * @param {string} view Default=files - Which view to render
  */
 function content(returnPath, route, title, findFiles = false, view = 'files') {
-    
-    console.log('****')
-    console.log(route)
-    console.log(files.urlEncode(route))
-    console.log(files.urlDecode(route))
-    console.log('****')
-
-    //TODO - Some urls are not getting routed correctly... see routeGenerator
-
-    // route = files.urlEncode(route);
     globals.app.get(route, function (request, response) {
         response.render(view, {
             title: title,
@@ -73,7 +63,6 @@ function file(route, functionToExecute) {
         const subDir = new URL(request.headers.referer).pathname;
         const fileName = request.query.id;
 
-        // let filePath = files.replaceSymbol(globals.shared + subDir + '/' + fileName, '%20', ' ');
         let filePath = files.urlDecode(globals.shared + subDir + '/' + fileName);
         if (request.query.dir) { filePath = filePath.replace('streamDirect', request.query.dir) }
 
