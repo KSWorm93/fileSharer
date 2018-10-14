@@ -14,7 +14,10 @@ module.exports = {
  * @param {*} dir Directory to look at
  */
 function readContentFromDir(sharedDir, dir, dirOnly = false) {
-    dir = dir.replace('%20', ' ');
+    dir = files.urlDecode(dir);
+
+    console.log(dir)
+    console.log(sharedDir + dir)
 
     if (dirOnly) return getContent(sharedDir + dir, getFilter('directory'))
     return getContent(sharedDir + dir, getFilter('file'))

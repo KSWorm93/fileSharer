@@ -35,7 +35,7 @@ function generateRoutes() {
 
             const albumDirs = content.getContent(shared + directory + '/' + subDir);
             albumDirs.forEach(subSubDir => {
-                const route = '/' + subDir + '/' + subSubDir;
+                const route = '/' + directory + '/' + subDir + '/' + subSubDir;
                 const title = files.capitalAll(subSubDir);
 
                 fileContent += addContentRoute(directory + '/' + subDir, route, title);
@@ -76,5 +76,10 @@ function addModuleExportsEnd() {
 }
 
 function addContentRoute(returnPath, route, title) {
-    return '\trouteHelper.contentRoute("' + files.replaceSymbol(returnPath, " ", "%20") + '", "' + files.replaceSymbol(route, " ", "%20") + '", "' + title + '");';
+    returnPath = files.urlEncode(returnPath);
+    route = files.urlEncode(route);
+
+    console.log(route)
+
+    return '\trouteHelper.contentRoute("' + returnPath + '", "' + route + '", "' + title + '");';
 }

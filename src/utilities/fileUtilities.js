@@ -5,7 +5,9 @@ module.exports = {
     getFileExtension: fileExtension,
     getMimeType: mimeType,
     getFileName: getName,
-    replaceSymbol: replaceSymbol
+    replaceSymbol: replaceSymbol,
+    urlEncode: urlEncode,
+    urlDecode: urlDecode
 }
 
 /**
@@ -50,7 +52,24 @@ function getName(filePath) {
 }
 
 function replaceSymbol(text, symbol, replacement) {
-    return text.replace(new RegExp(symbol, 'g'), replacement);
+    return text.split(symbol).join(replacement);
+}
+
+function urlEncode(text) {
+    let url = text;
+    url = replaceSymbol(url, ' ', '%20');
+    url = replaceSymbol(url, '(', '[(]')
+    url = replaceSymbol(url, ')', '[)]')
+    return url;
+}
+
+function urlDecode(text) {
+    let url = text;
+    url = replaceSymbol(url, '%20', ' ');
+    url = replaceSymbol(url, '[(]', '(');
+    url = replaceSymbol(url, '[)]', ')');
+
+    return url;
 }
 
 // https://www.freeformatter.com/mime-types-list.html

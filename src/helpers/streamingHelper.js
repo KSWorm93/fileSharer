@@ -12,8 +12,8 @@ module.exports = {
  * @param {string} filePath File path
  */
 function streamFile(response, request, stats, fileName, filePath) {
-    console.log(fileName)
-    console.log(filePath)
+    console.log('stream: ' + fileName)
+    console.log('stream: ' + filePath)
     console.log(request.query.id)
 
 
