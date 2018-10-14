@@ -68,6 +68,8 @@ function replaceSymbol(text, symbol, replacement) {
 function urlEncode(text) {
     let url = text;
     url = replaceSymbol(url, ' ', '%20');
+    url = replaceSymbol(url, '[', '%5B');
+    url = replaceSymbol(url, ']', '%5D');
     url = replaceSymbol(url, '(', '[(]')
     url = replaceSymbol(url, ')', '[)]')
     return url;
@@ -80,6 +82,8 @@ function urlEncode(text) {
 function urlDecode(text) {
     let url = text;
     url = replaceSymbol(url, '%20', ' ');
+    url = replaceSymbol(url, '%5B', '[');
+    url = replaceSymbol(url, '%5D', ']');
     url = replaceSymbol(url, '[(]', '(');
     url = replaceSymbol(url, '[)]', ')');
 

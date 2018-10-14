@@ -2,5 +2,4 @@
 /files
 
 #route locations
-/src/routes/*sRouter.js
-/src/routes/musicRouter.js
+/src/routes/contentRouter.js

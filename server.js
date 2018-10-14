@@ -26,12 +26,7 @@ app.engine('html', hbs.__express);
 
 //Add routes
 const main = require("./src/routes/mainRouter.js")();
-const books = require("./src/routes/booksRouter.js")();
-const movies = require("./src/routes/moviesRouter.js")();
-const music = require("./src/routes/musicRouter.js")();
-const games = require("./src/routes/gamesRouter.js")();
-const shows = require("./src/routes/showsRouter.js")();
-const pictures = require("./src/routes/picturesRouter.js")();
+const routes = require("./src/routes/contentRouter.js")();
 
 //start the server
 app.listen(PORT);
