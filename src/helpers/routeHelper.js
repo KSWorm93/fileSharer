@@ -1,18 +1,23 @@
 const contentLoader = require('../helpers/contentLoadHelper.js');
 const errors = require('../helpers/errorHelper.js')
-const files = require('../utilities/fileUtilities.js')
+const fileUtil = require('../utilities/fileUtilities.js')
 const globals = require('../../server.js');
 const { URL } = require('url');
 const path = require('path');
 const fs = require('fs');
+const database = require('../helpers/databaseHelper.js');
 
 module.exports = {
     contentRoute: content,
     streamRoute: stream,
     fileRoute: file,
     redirectRoute: redirect,
-    sendFileRoute: sendFile
+    sendFileRoute: sendFile,
+    recieveRoute: receive,
+    searchRoute: search
 }
+
+//TODO - Look into routes with [] in their names, seems to not work...
 
 /**
  * Add route for file loading content
@@ -24,16 +29,22 @@ module.exports = {
  */
 function content(returnPath, route, title, findFiles = false, view = 'files') {
     globals.app.get(route, function (request, response) {
-        response.render(view, {
-            title: title,
-            prefix: route,
-            returnPath: files.urlDecode(returnPath),
-            path: 'iWillFail.png',
-            loadFiles: findFiles,
-            loadgenre: !findFiles,
-            files: contentLoader.readContent(globals.shared, route),
-            subDirs: contentLoader.readContent(globals.shared, route, true)
-        });
+        let files = contentLoader.readContent(globals.shared, route);
+        let subDirs = contentLoader.readContent(globals.shared, route, true);
+        renderView(response, view, title, route, returnPath, findFiles, files, subDirs);
+    });
+}
+
+function renderView(response, view, title, route, returnPath, findFiles, files, subDirs) {
+    response.render(view, {
+        title: title,
+        prefix: route,
+        returnPath: fileUtil.urlDecode(returnPath),
+        path: 'iWillFail.png',
+        loadFiles: findFiles,
+        loadgenre: !findFiles,
+        files: files,
+        subDirs: subDirs
     });
 }
 
@@ -46,7 +57,7 @@ function stream(route, view = 'videoStream') {
     globals.app.get(route, function (request, response) {
         const dir = new URL(request.headers.referer).pathname;
         response.render(view, {
-            title: files.capitalFirstLetter(files.removeExtension(request.query.id)),
+            title: fileUtil.capitalFirstLetter(fileUtil.removeExtension(request.query.id)),
             stream: request.query.id,
             dir: dir
         });
@@ -63,7 +74,7 @@ function file(route, functionToExecute) {
         const subDir = new URL(request.headers.referer).pathname;
         const fileName = request.query.id;
 
-        let filePath = files.urlDecode(globals.shared + subDir + '/' + fileName);
+        let filePath = fileUtil.urlDecode(globals.shared + subDir + '/' + fileName);
         if (request.query.dir) { filePath = filePath.replace('streamDirect', request.query.dir) }
 
         fs.stat(filePath, function (error, stats) {
@@ -97,5 +108,56 @@ function sendFile(route, view) {
 function redirect(route, redirect) {
     globals.app.get(route, function (request, response) {
         response.redirect(redirect);
+    })
+}
+
+/**
+ * Search database for content and renders view
+ */
+function search() {
+    let searchResponse;
+    globals.app.get('/search', function (request, response) {
+        const table = request.query.t;
+        searchResponse = response;
+        database.search(table, handleResult);
+    }); 
+
+    function handleResult(result){
+        console.log(result)
+        if(result) {
+            console.log(result);
+            renderView(searchResponse, 'files', 'title', '/search', '/', false, result, '/');
+        } else {
+            //TODO - Create better error page
+            errors.errorPage(searchResponse, 'Search of database resulted in error', '404', 'Not found');
+        }
+    }
+}
+
+
+//TODO - What is the purpose of this call?
+/**
+ * POST call to receive a request
+ * 
+ * Data should be sent in request.body in JSON format
+ * @param {string} route Route to register
+ */
+function receive(route) {
+    globals.app.post('/request', (req, res) => {
+        const body = req.body;
+
+        const requestDTO = body;
+        console.log(requestDTO.movie);
+        console.log(requestDTO.genre);
+        console.log(database)
+
+        database.collection("customers").insertOne(requestDTO, function (err, res) {
+            if (err) { console.log('Shit hit the fan!'); }
+            console.log("Everything good - Inserted: " + requestDTO);
+            db.close();
+        });
+
+
+        res.end('Received: ' + res.statusCode + '\n');
     })
 }

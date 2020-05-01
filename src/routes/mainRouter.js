@@ -8,4 +8,6 @@ module.exports = function () {
     routeHelper.streamRoute('/streamDirect');
     routeHelper.fileRoute('/download', download.downloadFile);
     routeHelper.fileRoute('/stream', streamer.streamFile);
+    routeHelper.recieveRoute('/request');
+    routeHelper.searchRoute('/search');
 }

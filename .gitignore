@@ -1,5 +1,14 @@
+#mode modules
 /node_modules
+
+#link to shared files
 /files
+
+#personal notes
+note.txt
 
 #route locations
 /src/routes/contentRouter.js
+
+#database
+*.sqlite3

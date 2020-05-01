@@ -1,20 +1,23 @@
 {
-    "name": "filesharer",
-    "version": "1.0.0",
-    "description": "Personal file sharing server",
-    "main": "index.js",
-    "scripts": {
-      "prestart":"node src/utilities/routeGenerator.js",  
-      "start": "node server.js"
-    },
-    "keywords": [
-      "fileSharer"
-    ],
-    "author": "KSWorm93",
-    "license": "ISC",
-    "dependencies": {
-      "express": "^4.16.2",
-      "handlebars": "^4.0.11",
-      "hbs": "^4.0.1"
-    }
+  "name": "filesharer",
+  "version": "1.0.0",
+  "description": "Personal file sharing server",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "node src/utilities/routeGenerator.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "fileSharer"
+  ],
+  "author": "KSWorm93",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.5",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.2",
+    "handlebars": "^4.1.2",
+    "hbs": "^4.0.4",
+    "sqlite3": "^4.0.9"
   }
+}
