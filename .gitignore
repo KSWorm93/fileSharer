@@ -12,3 +12,6 @@ note.txt
 
 #database
 *.sqlite3
+
+#code
+*.code-workspace
