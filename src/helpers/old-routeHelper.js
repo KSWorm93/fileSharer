@@ -31,20 +31,7 @@ function content(returnPath, route, title, findFiles = false, view = 'files') {
     globals.app.get(route, function (request, response) {
         let files = contentLoader.readContent(globals.shared, route);
         let subDirs = contentLoader.readContent(globals.shared, route, true);
-        renderView(response, view, title, route, returnPath, findFiles, files, subDirs);
-    });
-}
-
-function renderView(response, view, title, route, returnPath, findFiles, files, subDirs) {
-    response.render(view, {
-        title: title,
-        prefix: route,
-        returnPath: fileUtil.urlDecode(returnPath),
-        path: 'iWillFail.png',
-        loadFiles: findFiles,
-        loadgenre: !findFiles,
-        files: files,
-        subDirs: subDirs
+        contentLoader.renderView(response, view, title, route, returnPath, findFiles, files, subDirs);
     });
 }
 
@@ -113,25 +100,37 @@ function redirect(route, redirect) {
 
 /**
  * Search database for content and renders view
+ * Looks at request.query.t to find table
  */
-function search() {
+function search(search) {
     let searchResponse;
-    globals.app.get('/search', function (request, response) {
-        const table = request.query.t;
+    let table;
+    globals.app.get(search, function (request, response) {
+        table = request.query.t ?? 'empty'; //TODO - empty search param - show seach page (TOBE Created)
         searchResponse = response;
         database.search(table, handleResult);
     }); 
 
     function handleResult(result){
-        console.log(result)
         if(result) {
             console.log(result);
-            renderView(searchResponse, 'files', 'title', '/search', '/', false, result, '/');
+            contentLoader.renderView(searchResponse, 'files', 'Search: ' + table, '/search', 'search', false, result, '/');
         } else {
             //TODO - Create better error page
-            errors.errorPage(searchResponse, 'Search of database resulted in error', '404', 'Not found');
+            errors.errorPage(searchResponse, 'Search of database resulted in error', '404', 'Not found', 'search');
         }
     }
+}
+
+//TODO - Scan files, look up files in database, add in database if found not already in it
+//TODO - Error handling for wrong filename/structure
+function scanFiles() {
+    globals.app.get('/scan', function (request, response) {
+        //Access file reader
+            //Got list of files
+        //Query database for files
+        //Update files not in database
+    });
 }
 
 

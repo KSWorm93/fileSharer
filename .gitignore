@@ -1,4 +1,4 @@
-#mode modules
+#node modules folder
 /node_modules
 
 #link to shared files

@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path')
-const files = require('../utilities/fileUtilities.js');
+const files = require('./fileUtilities.js');
 const shared = __dirname + '/../..' + '/files/';
 let fileContent = '';
 
@@ -8,7 +8,7 @@ module.exports = {
     generateRoutes: generateRoutes
 }
 
-generateRoutes();
+// generateRoutes();
 
 function generateRoutes() {
     const location = __dirname + '/..' + '/routes/';

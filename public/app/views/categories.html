@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {{title}}
+    </title>
+</head>
+
+<body>
+    <p>Categories</p>
+    <a href="/{{returnRoute}}">Go back</a>
+
+    <div>
+        <h4>Genres</h4>
+        <ul>
+            {{#genres}}
+            <li>
+                <a href="{{../self}}/{{this.self}}">{{this.title}}</a>
+            </li>
+            {{/genres}}
+        </ul>
+    </div>
+
+
+    <footer>
+        <hr>
+        <div>
+            <label>Return</label>
+            <a href="/">Home</a>
+        </div>
+    </footer>
+
+</body>
+
+
+</html>

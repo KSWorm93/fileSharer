@@ -4,7 +4,7 @@
   "description": "Personal file sharing server",
   "main": "index.js",
   "scripts": {
-    "prestart": "node src/utilities/routeGenerator.js",
+    "prestart": "node src/utilities/scanner.js",
     "start": "node server.js"
   },
   "keywords": [

@@ -1,10 +1,11 @@
-const files = require('../utilities/fileUtilities.js');
+const fileUtil = require('../utilities/fileUtilities.js');
 const fs = require('fs');
 const path = require('path');
 
 module.exports = {
     readContent: readContentFromDir,
-    getContent: getContent
+    getContent: readContent,
+    renderView: render
 }
 
 /**
@@ -13,10 +14,10 @@ module.exports = {
  * @param {*} dir Directory to look at
  */
 function readContentFromDir(sharedDir, dir, dirOnly = false) {
-    dir = files.urlDecode(dir);
+    dir = fileUtil.urlDecode(dir);
 
-    if (dirOnly) return getContent(sharedDir + dir, getFilter('directory'))
-    return getContent(sharedDir + dir, getFilter('file'))
+    if (dirOnly) return readContent(sharedDir + dir, getFilter('directory'))
+    return readContent(sharedDir + dir, getFilter('file'))
 }
 
 /**
@@ -25,11 +26,11 @@ function readContentFromDir(sharedDir, dir, dirOnly = false) {
  * @param {string} source directory source to look up
  * @param {function} filter optional filter function for specific elements
  */
-function getContent(source, filter = getFilter('directory')) {
+function readContent(source, filter = getFilter('directory')) {
     return fs.readdirSync(source)
         .map(element => path.join(source, element))
         .filter(filter)
-        .map(element => files.getFileName(element))
+        .map(element => fileUtil.getFileName(element))
 }
 
 function getFilter(filter) {
@@ -38,4 +39,17 @@ function getFilter(filter) {
         'directory': source => fs.lstatSync(source).isDirectory()
     }
     return filterFunctions[filter]
+}
+
+function render(response, view, title, route, returnPath, findFiles, files, subDirs) {
+    response.render(view, {
+        title: title,
+        prefix: route,
+        returnPath: fileUtil.urlDecode(returnPath),
+        path: 'iWillFail.png',
+        loadFiles: findFiles,
+        loadgenre: !findFiles,
+        files: files,
+        subDirs: subDirs
+    });
 }

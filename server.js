@@ -1,37 +1,33 @@
 //Imports
+const dirs = require('./src/utilities/directories');
 const express = require('express');
 const hbs = require('hbs');
 
 //Constants
 const app = express();
-//Folders
-const sharedDir = __dirname + '/files';
-const publicDir = __dirname + '/public/app/';
-const sourceDir = __dirname + 'src';
 //Server
 const PORT = 4090;
 const HOSTNAME = 'http://localhost:';
 
-//Export globals
-module.exports = {
-    app: app,
-    source: sourceDir,
-    shared: sharedDir,
-    public: publicDir,
-}
+//TODO - Log steps taken during startup
 
 //Set engine and views location
-app.set('views', publicDir + 'views/')
-app.use(express.static(publicDir + 'scripts'))
+app.set('views', dirs.public + 'views/');
+app.use(express.static(dirs.public))
 app.set('view engine', 'html');
 app.engine('html', hbs.__express);
 
 //Add routes
-const main = require("./src/routes/mainRouter.js")();
-const routes = require("./src/routes/contentRouter.js")();
+// const main = require("./src/routes/mainRouter.js")();
+// const routes = require("./src/routes/contentRouterOld.js")();
+// require("./src/routes/staticRouter.js")(app);
+// require("./src/routes/contentRouter.js")(app);
+// require("./src/routes/searchRouter.js")(app);
+require(".src/routes/router.js")(app);
 
+//TODO - consider making the scanner do this
 const db = require('./src/helpers/databaseHelper');
-db.setup();
+db.init();
 
 //start the server
 app.listen(PORT);

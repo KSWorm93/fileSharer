@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {{title}}
+    </title>
+</head>
+
+<body>
+    <p>Content</p>
+    <a href="/{{returnRoute}}">Go back</a>
+
+    <div>
+        <h4>Files</h4>
+        <ul id="links">
+            {{#content}}
+            <li>
+                <div>
+                    <a href="/download/{{../type}}/{{this.id}}">DOWNLOAD</a>
+                    <a href="/stream/{{../type}}/{{this.id}}">STREAM</a>
+                    <label>{{this.title}}</label>
+                </div>
+            </li>
+            {{/content}}
+        </ul>
+    </div>
+
+    <footer>
+        <hr>
+        <div>
+            <label>Return</label>
+            <a href="/">Home</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -92,9 +92,13 @@ function urlDecode(text) {
 
 // https://www.freeformatter.com/mime-types-list.html
 /**
- * Object containing all string mimetypes
+ * Return mimetype based on file extension
+ * - Takes filePath or extension as param
  */
 function mimeType(extension) {
+    if(extension.includes('.')) {
+        extension = fileExtension(extension);
+    }
     const mimeType = {
         'ico': 'image/x-icon',
         'png': 'image/png',
